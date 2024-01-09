@@ -54,4 +54,4 @@ If you find any issues, have improvements to suggest, or want to add more conten
 
 This MySQL Code Sheet is open-sourced under the [MIT License](LICENSE).
 
-Happy coding!
+Happy coding friends!
