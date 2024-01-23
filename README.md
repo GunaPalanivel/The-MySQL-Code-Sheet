@@ -27,7 +27,7 @@ This repository contains a collection of MySQL code snippets, cheat sheets, and 
 13. [Stored Procedures for MySQL](MySQL_code_sheet/13-stored-procedures-for-mysql.md)
 14. [Logical Operators](MySQL_code_sheet/14-logical-operators.md)
 15. [Aggregate Functions](MySQL_code_sheet/15-aggregate-functions.md)
-16. [Arithmetic, Bitwise, Comparison, and Compound Operators](MySQL_code_sheet/16-arithmetic-bitwise-comparison-and-compound-operators.md)
+16. [Operators](MySQL_code_sheet/16-operators.md)
 17. [SQL Database Backup Commands](MySQL_code_sheet/17-sql-database-backup-commands.md)
 18. [Conclusions](MySQL_code_sheet/18-conclusions.md)
 
