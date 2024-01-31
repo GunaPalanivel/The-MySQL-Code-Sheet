@@ -27,7 +27,7 @@ This repository contains a collection of MySQL code snippets, cheat sheets, and 
 13. [Stored Procedures for MySQL](MySQL_code_sheet/13-stored-procedures-for-mysql.md)
 14. [Logical Operators](MySQL_code_sheet/14-logical-operators.md)
 15. [Aggregate Functions](MySQL_code_sheet/15-aggregate-functions.md)
-16. [Arithmetic, Bitwise, Comparison, and Compound Operators](MySQL_code_sheet/16-arithmetic-bitwise-comparison-and-compound-operators.md)
+16. [Operators](MySQL_code_sheet/16-operators.md)
 17. [SQL Database Backup Commands](MySQL_code_sheet/17-sql-database-backup-commands.md)
 18. [Conclusions](MySQL_code_sheet/18-conclusions.md)
 
@@ -40,7 +40,7 @@ Feel free to use this cheat sheet as a quick reference guide for MySQL developme
 The repository includes:
 
 - `MySQL_code_sheet`: The main MySQL cheat sheet in markdown format.
-- `MySQL_quires.txt`: The .txt and .sql file with actual quires you can work with to know more.
+- `MySQL_quires`: The .txt file with actual quires you can work with to know more.
 
 ## How to Contribute
 
@@ -53,3 +53,5 @@ If you find any issues, have improvements to suggest, or want to add more conten
 ## License
 
 This MySQL Code Sheet is open-sourced under the [MIT License](LICENSE).
+
+Happy coding!
