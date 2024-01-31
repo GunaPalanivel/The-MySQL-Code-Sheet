@@ -40,7 +40,7 @@ Feel free to use this cheat sheet as a quick reference guide for MySQL developme
 The repository includes:
 
 - `MySQL_code_sheet`: The main MySQL cheat sheet in markdown format.
-- `MySQL_quires.txt`: The .txt and .sql file with actual quires you can work with to know more.
+- `MySQL_quires`: The .txt file with actual quires you can work with to know more.
 
 ## How to Contribute
 
@@ -53,3 +53,5 @@ If you find any issues, have improvements to suggest, or want to add more conten
 ## License
 
 This MySQL Code Sheet is open-sourced under the [MIT License](LICENSE).
+
+Happy coding!
