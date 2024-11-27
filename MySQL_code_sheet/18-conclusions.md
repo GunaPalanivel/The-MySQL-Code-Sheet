@@ -1,1 +1,1 @@
-## WIP: Developer will continue development later
+# WIP: Development is in progress and will continue later.
