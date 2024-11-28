@@ -6,24 +6,24 @@ SET NAMES utf8 ;
 SET character_set_client = utf8mb4 ;
 
 CREATE TABLE `payment_methods` (
-  `payment_method_id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`payment_method_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `payment_method_id` TINYINT(4) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`payment_method_id`)
+)  ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `payment_methods` VALUES (1,'Credit Card');
 INSERT INTO `payment_methods` VALUES (2,'Cash');
 INSERT INTO `payment_methods` VALUES (3,'PayPal');
 INSERT INTO `payment_methods` VALUES (4,'Wire Transfer');
 
 CREATE TABLE `clients` (
-  `client_id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `address` varchar(50) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `state` char(2) NOT NULL,
-  `phone` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `client_id` INT(11) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
+    `address` VARCHAR(50) NOT NULL,
+    `city` VARCHAR(50) NOT NULL,
+    `state` CHAR(2) NOT NULL,
+    `phone` VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (`client_id`)
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `clients` VALUES (1,'Vinte','3 Nevada Parkway','Syracuse','NY','315-252-7305');
 INSERT INTO `clients` VALUES (2,'Myworks','34267 Glendale Parkway','Huntington','WV','304-659-1170');
 INSERT INTO `clients` VALUES (3,'Yadel','096 Pawling Parkway','San Francisco','CA','415-144-6037');
@@ -31,18 +31,20 @@ INSERT INTO `clients` VALUES (4,'Kwideo','81674 Westerfield Circle','Waco','TX',
 INSERT INTO `clients` VALUES (5,'Topiclounge','0863 Farmco Road','Portland','OR','971-888-9129');
 
 CREATE TABLE `invoices` (
-  `invoice_id` int(11) NOT NULL,
-  `number` varchar(50) NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `invoice_total` decimal(9,2) NOT NULL,
-  `payment_total` decimal(9,2) NOT NULL DEFAULT '0.00',
-  `invoice_date` date NOT NULL,
-  `due_date` date NOT NULL,
-  `payment_date` date DEFAULT NULL,
-  PRIMARY KEY (`invoice_id`),
-  KEY `FK_client_id` (`client_id`),
-  CONSTRAINT `FK_client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `invoice_id` INT(11) NOT NULL,
+    `number` VARCHAR(50) NOT NULL,
+    `client_id` INT(11) NOT NULL,
+    `invoice_total` DECIMAL(9 , 2 ) NOT NULL,
+    `payment_total` DECIMAL(9 , 2 ) NOT NULL DEFAULT '0.00',
+    `invoice_date` DATE NOT NULL,
+    `due_date` DATE NOT NULL,
+    `payment_date` DATE DEFAULT NULL,
+    PRIMARY KEY (`invoice_id`),
+    KEY `FK_client_id` (`client_id`),
+    CONSTRAINT `FK_client_id` FOREIGN KEY (`client_id`)
+        REFERENCES `clients` (`client_id`)
+        ON DELETE RESTRICT ON UPDATE CASCADE
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `invoices` VALUES (1,'91-953-3396',2,101.79,0.00,'2019-03-09','2019-03-29',NULL);
 INSERT INTO `invoices` VALUES (2,'03-898-6735',5,175.32,8.18,'2019-06-11','2019-07-01','2019-02-12');
 INSERT INTO `invoices` VALUES (3,'20-228-0335',5,147.99,0.00,'2019-07-31','2019-08-20',NULL);
@@ -62,20 +64,25 @@ INSERT INTO `invoices` VALUES (18,'52-269-9803',5,180.17,42.77,'2019-05-23','201
 INSERT INTO `invoices` VALUES (19,'83-559-4105',1,134.47,0.00,'2019-11-23','2019-12-13',NULL);
 
 CREATE TABLE `payments` (
-  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `client_id` int(11) NOT NULL,
-  `invoice_id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `amount` decimal(9,2) NOT NULL,
-  `payment_method` tinyint(4) NOT NULL,
-  PRIMARY KEY (`payment_id`),
-  KEY `fk_client_id_idx` (`client_id`),
-  KEY `fk_invoice_id_idx` (`invoice_id`),
-  KEY `fk_payment_payment_method_idx` (`payment_method`),
-  CONSTRAINT `fk_payment_client` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_payment_invoice` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`invoice_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_payment_payment_method` FOREIGN KEY (`payment_method`) REFERENCES `payment_methods` (`payment_method_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `payment_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `client_id` INT(11) NOT NULL,
+    `invoice_id` INT(11) NOT NULL,
+    `date` DATE NOT NULL,
+    `amount` DECIMAL(9 , 2 ) NOT NULL,
+    `payment_method` TINYINT(4) NOT NULL,
+    PRIMARY KEY (`payment_id`),
+    KEY `fk_client_id_idx` (`client_id`),
+    KEY `fk_invoice_id_idx` (`invoice_id`),
+    KEY `fk_payment_payment_method_idx` (`payment_method`),
+    CONSTRAINT `fk_payment_client` FOREIGN KEY (`client_id`)
+        REFERENCES `clients` (`client_id`)
+        ON UPDATE CASCADE,
+    CONSTRAINT `fk_payment_invoice` FOREIGN KEY (`invoice_id`)
+        REFERENCES `invoices` (`invoice_id`)
+        ON UPDATE CASCADE,
+    CONSTRAINT `fk_payment_payment_method` FOREIGN KEY (`payment_method`)
+        REFERENCES `payment_methods` (`payment_method_id`)
+)  ENGINE=INNODB AUTO_INCREMENT=9 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `payments` VALUES (1,5,2,'2019-02-12',8.18,1);
 INSERT INTO `payments` VALUES (2,1,6,'2019-01-03',74.55,1);
 INSERT INTO `payments` VALUES (3,3,11,'2019-01-11',0.03,1);
@@ -91,12 +98,12 @@ CREATE DATABASE `sql_store`;
 USE `sql_store`;
 
 CREATE TABLE `products` (
-  `product_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `quantity_in_stock` int(11) NOT NULL,
-  `unit_price` decimal(4,2) NOT NULL,
-  PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `product_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    `quantity_in_stock` INT(11) NOT NULL,
+    `unit_price` DECIMAL(4 , 2 ) NOT NULL,
+    PRIMARY KEY (`product_id`)
+)  ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `products` VALUES (1,'Foam Dinner Plate',70,1.21);
 INSERT INTO `products` VALUES (2,'Pork - Bacon,back Peameal',49,4.65);
 INSERT INTO `products` VALUES (3,'Lettuce - Romaine, Heart',38,3.35);
@@ -110,10 +117,10 @@ INSERT INTO `products` VALUES (10,'Broom - Push',6,1.09);
 
 
 CREATE TABLE `shippers` (
-  `shipper_id` smallint(6) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`shipper_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `shipper_id` SMALLINT(6) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`shipper_id`)
+)  ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `shippers` VALUES (1,'Hettinger LLC');
 INSERT INTO `shippers` VALUES (2,'Schinner-Predovic');
 INSERT INTO `shippers` VALUES (3,'Satterfield LLC');
@@ -122,17 +129,17 @@ INSERT INTO `shippers` VALUES (5,'Waters, Mayert and Prohaska');
 
 
 CREATE TABLE `customers` (
-  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `birth_date` date DEFAULT NULL,
-  `phone` varchar(50) DEFAULT NULL,
-  `address` varchar(50) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `state` char(2) NOT NULL,
-  `points` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `customer_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(50) NOT NULL,
+    `last_name` VARCHAR(50) NOT NULL,
+    `birth_date` DATE DEFAULT NULL,
+    `phone` VARCHAR(50) DEFAULT NULL,
+    `address` VARCHAR(50) NOT NULL,
+    `city` VARCHAR(50) NOT NULL,
+    `state` CHAR(2) NOT NULL,
+    `points` INT(11) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`customer_id`)
+)  ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `customers` VALUES (1,'Babara','MacCaffrey','1986-03-28','781-932-9754','0 Sage Terrace','Waltham','MA',2273);
 INSERT INTO `customers` VALUES (2,'Ines','Brushfield','1986-04-13','804-427-9456','14187 Commercial Trail','Hampton','VA',947);
 INSERT INTO `customers` VALUES (3,'Freddi','Boagey','1985-02-07','719-724-7869','251 Springs Junction','Colorado Springs','CO',2967);
@@ -146,31 +153,37 @@ INSERT INTO `customers` VALUES (10,'Levy','Mynett','1969-10-13','404-246-3370','
 
 
 CREATE TABLE `order_statuses` (
-  `order_status_id` tinyint(4) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`order_status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `order_status_id` TINYINT(4) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`order_status_id`)
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `order_statuses` VALUES (1,'Processed');
 INSERT INTO `order_statuses` VALUES (2,'Shipped');
 INSERT INTO `order_statuses` VALUES (3,'Delivered');
 
 
 CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `order_date` date NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `comments` varchar(2000) DEFAULT NULL,
-  `shipped_date` date DEFAULT NULL,
-  `shipper_id` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`order_id`),
-  KEY `fk_orders_customers_idx` (`customer_id`),
-  KEY `fk_orders_shippers_idx` (`shipper_id`),
-  KEY `fk_orders_order_statuses_idx` (`status`),
-  CONSTRAINT `fk_orders_customers` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_orders_order_statuses` FOREIGN KEY (`status`) REFERENCES `order_statuses` (`order_status_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_orders_shippers` FOREIGN KEY (`shipper_id`) REFERENCES `shippers` (`shipper_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `order_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `customer_id` INT(11) NOT NULL,
+    `order_date` DATE NOT NULL,
+    `status` TINYINT(4) NOT NULL DEFAULT '1',
+    `comments` VARCHAR(2000) DEFAULT NULL,
+    `shipped_date` DATE DEFAULT NULL,
+    `shipper_id` SMALLINT(6) DEFAULT NULL,
+    PRIMARY KEY (`order_id`),
+    KEY `fk_orders_customers_idx` (`customer_id`),
+    KEY `fk_orders_shippers_idx` (`shipper_id`),
+    KEY `fk_orders_order_statuses_idx` (`status`),
+    CONSTRAINT `fk_orders_customers` FOREIGN KEY (`customer_id`)
+        REFERENCES `customers` (`customer_id`)
+        ON UPDATE CASCADE,
+    CONSTRAINT `fk_orders_order_statuses` FOREIGN KEY (`status`)
+        REFERENCES `order_statuses` (`order_status_id`)
+        ON UPDATE CASCADE,
+    CONSTRAINT `fk_orders_shippers` FOREIGN KEY (`shipper_id`)
+        REFERENCES `shippers` (`shipper_id`)
+        ON UPDATE CASCADE
+)  ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `orders` VALUES (1,6,'2019-01-30',1,NULL,NULL,NULL);
 INSERT INTO `orders` VALUES (2,7,'2018-08-02',2,NULL,'2018-08-03',4);
 INSERT INTO `orders` VALUES (3,8,'2017-12-01',1,NULL,NULL,NULL);
@@ -184,15 +197,19 @@ INSERT INTO `orders` VALUES (10,6,'2018-04-22',2,NULL,'2018-04-23',2);
 
 
 CREATE TABLE `order_items` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `unit_price` decimal(4,2) NOT NULL,
-  PRIMARY KEY (`order_id`,`product_id`),
-  KEY `fk_order_items_products_idx` (`product_id`),
-  CONSTRAINT `fk_order_items_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_order_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `order_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `product_id` INT(11) NOT NULL,
+    `quantity` INT(11) NOT NULL,
+    `unit_price` DECIMAL(4 , 2 ) NOT NULL,
+    PRIMARY KEY (`order_id` , `product_id`),
+    KEY `fk_order_items_products_idx` (`product_id`),
+    CONSTRAINT `fk_order_items_orders` FOREIGN KEY (`order_id`)
+        REFERENCES `orders` (`order_id`)
+        ON UPDATE CASCADE,
+    CONSTRAINT `fk_order_items_products` FOREIGN KEY (`product_id`)
+        REFERENCES `products` (`product_id`)
+        ON UPDATE CASCADE
+)  ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `order_items` VALUES (1,4,4,3.74);
 INSERT INTO `order_items` VALUES (2,1,2,9.10);
 INSERT INTO `order_items` VALUES (2,4,4,1.66);
@@ -213,11 +230,12 @@ INSERT INTO `order_items` VALUES (10,1,10,6.01);
 INSERT INTO `order_items` VALUES (10,9,9,4.28);
 
 CREATE TABLE `sql_store`.`order_item_notes` (
-  `note_id` INT NOT NULL,
-  `order_Id` INT NOT NULL,
-  `product_id` INT NOT NULL,
-  `note` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`note_id`));
+    `note_id` INT NOT NULL,
+    `order_Id` INT NOT NULL,
+    `product_id` INT NOT NULL,
+    `note` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`note_id`)
+);
 
 INSERT INTO `order_item_notes` (`note_id`, `order_Id`, `product_id`, `note`) VALUES ('1', '1', '2', 'first note');
 INSERT INTO `order_item_notes` (`note_id`, `order_Id`, `product_id`, `note`) VALUES ('2', '1', '2', 'second note');
@@ -229,12 +247,12 @@ USE `sql_hr`;
 
 
 CREATE TABLE `offices` (
-  `office_id` int(11) NOT NULL,
-  `address` varchar(50) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `state` varchar(50) NOT NULL,
-  PRIMARY KEY (`office_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `office_id` INT(11) NOT NULL,
+    `address` VARCHAR(50) NOT NULL,
+    `city` VARCHAR(50) NOT NULL,
+    `state` VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`office_id`)
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `offices` VALUES (1,'03 Reinke Trail','Cincinnati','OH');
 INSERT INTO `offices` VALUES (2,'5507 Becker Terrace','New York City','NY');
 INSERT INTO `offices` VALUES (3,'54 Northland Court','Richmond','VA');
@@ -249,19 +267,22 @@ INSERT INTO `offices` VALUES (10,'4 Bluestem Parkway','Savannah','GA');
 
 
 CREATE TABLE `employees` (
-  `employee_id` int(11) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `job_title` varchar(50) NOT NULL,
-  `salary` int(11) NOT NULL,
-  `reports_to` int(11) DEFAULT NULL,
-  `office_id` int(11) NOT NULL,
-  PRIMARY KEY (`employee_id`),
-  KEY `fk_employees_offices_idx` (`office_id`),
-  KEY `fk_employees_employees_idx` (`reports_to`),
-  CONSTRAINT `fk_employees_managers` FOREIGN KEY (`reports_to`) REFERENCES `employees` (`employee_id`),
-  CONSTRAINT `fk_employees_offices` FOREIGN KEY (`office_id`) REFERENCES `offices` (`office_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `employee_id` INT(11) NOT NULL,
+    `first_name` VARCHAR(50) NOT NULL,
+    `last_name` VARCHAR(50) NOT NULL,
+    `job_title` VARCHAR(50) NOT NULL,
+    `salary` INT(11) NOT NULL,
+    `reports_to` INT(11) DEFAULT NULL,
+    `office_id` INT(11) NOT NULL,
+    PRIMARY KEY (`employee_id`),
+    KEY `fk_employees_offices_idx` (`office_id`),
+    KEY `fk_employees_employees_idx` (`reports_to`),
+    CONSTRAINT `fk_employees_managers` FOREIGN KEY (`reports_to`)
+        REFERENCES `employees` (`employee_id`),
+    CONSTRAINT `fk_employees_offices` FOREIGN KEY (`office_id`)
+        REFERENCES `offices` (`office_id`)
+        ON UPDATE CASCADE
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `employees` VALUES (37270,'Yovonnda','Magrannell','Executive Secretary',63996,NULL,10);
 INSERT INTO `employees` VALUES (33391,'D\'arcy','Nortunen','Account Executive',62871,37270,1);
 INSERT INTO `employees` VALUES (37851,'Sayer','Matterson','Statistician III',98926,37270,1);
@@ -290,12 +311,12 @@ USE `sql_inventory`;
 
 
 CREATE TABLE `products` (
-  `product_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `quantity_in_stock` int(11) NOT NULL,
-  `unit_price` decimal(4,2) NOT NULL,
-  PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `product_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    `quantity_in_stock` INT(11) NOT NULL,
+    `unit_price` DECIMAL(4 , 2 ) NOT NULL,
+    PRIMARY KEY (`product_id`)
+)  ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 INSERT INTO `products` VALUES (1,'Foam Dinner Plate',70,1.21);
 INSERT INTO `products` VALUES (2,'Pork - Bacon,back Peameal',49,4.65);
 INSERT INTO `products` VALUES (3,'Lettuce - Romaine, Heart',38,3.35);
