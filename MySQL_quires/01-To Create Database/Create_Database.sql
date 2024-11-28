@@ -1,9 +1,14 @@
 DROP DATABASE IF EXISTS `sql_invoicing`;
-CREATE DATABASE `sql_invoicing`; 
+
+CREATE DATABASE `sql_invoicing`;
+
 USE `sql_invoicing`;
 
+
 SET NAMES utf8 ;
+
 SET character_set_client = utf8mb4 ;
+
 
 CREATE TABLE `payment_methods` (
     `payment_method_id` TINYINT(4) NOT NULL AUTO_INCREMENT,
@@ -14,6 +19,7 @@ INSERT INTO `payment_methods` VALUES (1,'Credit Card');
 INSERT INTO `payment_methods` VALUES (2,'Cash');
 INSERT INTO `payment_methods` VALUES (3,'PayPal');
 INSERT INTO `payment_methods` VALUES (4,'Wire Transfer');
+
 
 CREATE TABLE `clients` (
     `client_id` INT(11) NOT NULL,
@@ -29,6 +35,7 @@ INSERT INTO `clients` VALUES (2,'Myworks','34267 Glendale Parkway','Huntington',
 INSERT INTO `clients` VALUES (3,'Yadel','096 Pawling Parkway','San Francisco','CA','415-144-6037');
 INSERT INTO `clients` VALUES (4,'Kwideo','81674 Westerfield Circle','Waco','TX','254-750-0784');
 INSERT INTO `clients` VALUES (5,'Topiclounge','0863 Farmco Road','Portland','OR','971-888-9129');
+
 
 CREATE TABLE `invoices` (
     `invoice_id` INT(11) NOT NULL,
@@ -62,6 +69,7 @@ INSERT INTO `invoices` VALUES (16,'10-451-8824',1,162.02,0.00,'2019-03-30','2019
 INSERT INTO `invoices` VALUES (17,'33-615-4694',3,126.38,68.10,'2019-07-30','2019-08-19','2019-01-15');
 INSERT INTO `invoices` VALUES (18,'52-269-9803',5,180.17,42.77,'2019-05-23','2019-06-12','2019-01-08');
 INSERT INTO `invoices` VALUES (19,'83-559-4105',1,134.47,0.00,'2019-11-23','2019-12-13',NULL);
+
 
 CREATE TABLE `payments` (
     `payment_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -229,6 +237,7 @@ INSERT INTO `order_items` VALUES (9,6,5,7.28);
 INSERT INTO `order_items` VALUES (10,1,10,6.01);
 INSERT INTO `order_items` VALUES (10,9,9,4.28);
 
+
 CREATE TABLE `sql_store`.`order_item_notes` (
     `note_id` INT NOT NULL,
     `order_Id` INT NOT NULL,
@@ -242,7 +251,9 @@ INSERT INTO `order_item_notes` (`note_id`, `order_Id`, `product_id`, `note`) VAL
 
 
 DROP DATABASE IF EXISTS `sql_hr`;
+
 CREATE DATABASE `sql_hr`;
+
 USE `sql_hr`;
 
 
@@ -263,7 +274,6 @@ INSERT INTO `offices` VALUES (7,'9658 Wayridge Court','Boise','ID');
 INSERT INTO `offices` VALUES (8,'9 Grayhawk Trail','New York City','NY');
 INSERT INTO `offices` VALUES (9,'16862 Westend Hill','Knoxville','TN');
 INSERT INTO `offices` VALUES (10,'4 Bluestem Parkway','Savannah','GA');
-
 
 
 CREATE TABLE `employees` (
